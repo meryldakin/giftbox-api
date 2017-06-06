@@ -1,2 +1,0 @@
-class UserGift < ApplicationRecord
-end

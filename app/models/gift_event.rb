@@ -1,2 +1,0 @@
-class GiftEvent < ApplicationRecord
-end
