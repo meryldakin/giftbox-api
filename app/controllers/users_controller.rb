@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(firstName: params[firstName], lastName: params[lastName])
+    user = User.new(firstName: params[:firstName], lastName: params[:lastName])
     user.save
     render json: users
   end
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find(params[id])
+    user = User.find(params[:id])
     render json: user
   end
 
