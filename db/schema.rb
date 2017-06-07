@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607151412) do
+ActiveRecord::Schema.define(version: 20170607194230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,25 @@ ActiveRecord::Schema.define(version: 20170607151412) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "celebrations", force: :cascade do |t|
+    t.integer "friendship_id"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.date "date"
     t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "exchanges", force: :cascade do |t|
+    t.integer "celebration_id"
+    t.integer "gift_id"
+    t.boolean "completed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,6 +57,14 @@ ActiveRecord::Schema.define(version: 20170607151412) do
     t.string "category"
     t.decimal "price"
     t.string "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
+  create_table "gifts_events", force: :cascade do |t|
+    t.integer "gift_id"
+    t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -73,15 +96,6 @@ ActiveRecord::Schema.define(version: 20170607151412) do
     t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "users_gifts", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "gift_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "friend_id"
-    t.integer "event_id"
   end
 
 end
