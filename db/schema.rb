@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606190752) do
+ActiveRecord::Schema.define(version: 20170607151412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,25 +24,8 @@ ActiveRecord::Schema.define(version: 20170606190752) do
 
   create_table "events", force: :cascade do |t|
     t.string "name"
-    t.integer "month"
-    t.integer "day"
-    t.integer "year"
     t.date "date"
     t.string "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "events_gifts", force: :cascade do |t|
-    t.integer "gift_id"
-    t.integer "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "events_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -70,13 +53,6 @@ ActiveRecord::Schema.define(version: 20170606190752) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "gifts_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "gift_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "stores", force: :cascade do |t|
     t.string "name"
     t.string "website"
@@ -90,6 +66,22 @@ ActiveRecord::Schema.define(version: 20170606190752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "account_id"
+  end
+
+  create_table "users_events", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users_gifts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "gift_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "friend_id"
+    t.integer "event_id"
   end
 
 end

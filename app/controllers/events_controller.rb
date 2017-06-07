@@ -5,9 +5,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = Event.new(name: params[:name], month: params[:month], day: params[:day], year: params[:year], date: params[:date], type: params[:type])
+    event = Event.new(name: params[:name], date: params[:date], type: params[:type])
     event.save
-    render json: events
+    render json: event
   end
 
   def update
