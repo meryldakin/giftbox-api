@@ -10,19 +10,43 @@ class User < ApplicationRecord
   has_many :users_events
   has_many :events, through: :users_events
 
-def assignFriendGift(friend_id, gift_name)
-  friend = User.find(friend_id)
-  friendship = Friendship.find_by(friend_id: friend_id)
-  gift = Gift.where(:item => gift_name, :user_id => self.id).first_or_create
-  exchange = Exchange.create(gift: gift, celebration: Celebration.create(friendship: friendship), completed: false)
+def find_friend(friend_id)
+  return User.find(friend_id)
+end
+
+def find_friendship(friend_id)
+  return Friendship.where(:friend_id => friend_id, :user_id => self.id).first_or_create
+end
+
+def find_event(event_id)
+  return Event.find(event_id)
+end
+
+def find_friend_event_celebrations(friend_id, event_id)
+  return Celebration.where(friendship_id: friendship.id, event_id: event.id)
+end
+
+def find_or_create_gift(gift_name)
+  return Gift.where(:item => gift_name, :user_id => self.id).first_or_create
+end
+
+def create_anytime_exchange(gift_name)
+  return Exchange.create(gift: gift, celebration: Celebration.create(friendship: friendship), completed: false)
+end
+
+def assign_friend_gift(friend_id, gift_name)
+  friend = find_friend(friend_id)
+  friendship = find_friendship(friend_id)
+  gift = find_or_create_gift(gift_name)
+  exchange = create_anytime_exchange(gift_name)
   return "You have assigned #{exchange.gift.item} to #{friend.firstName}!"
 end
 
-def seeFriendGiftsForEvent(friend_id, event_id)
-  friend = User.find(friend_id)
-  friendship = Friendship.find_by(friend_id: friend_id)
-  event = Event.find(event_id)
-  celebrations = Celebration.where(friendship_id: friendship.id, event_id: event.id)
+def see_friend_gifts_for_event(friend_id, event_id)
+  friend = find_friend(friend_id)
+  friendship = find_friendship(friend_id)
+  event = find_event(event_id)
+  celebrations = find_friend_event_celebrations(friend_id, event_id)
   exchanges = celebrations.map do |celebration|
     celebration.exchanges
   end
@@ -37,15 +61,5 @@ def seeFriendGiftsForEvent(friend_id, event_id)
   end
 end
 
-  #find friendship
-  #ask for celebrations that have a particular event id
-  #ask for exchanges within those celebrations
-  #map through the exchanges and get the gift.item and
 
-  # def gifts_for_friend(friend)
-  #   self.gifts_users.where(friend_id: friend.id).map do |gift_user|
-  #     gift_user.gift
-  #   end
-  #   # self.gifts.join(:user_gifts).where('user_gifts.friend_id = ?', friend.id)
-  # end
 end
