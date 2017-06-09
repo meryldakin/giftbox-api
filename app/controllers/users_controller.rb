@@ -5,9 +5,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(firstName: params[:firstName], lastName: params[:lastName])
-    user.save
-    render json: users
+
+  end
+
+  def add_friend
+    user = User.first
+    user.add_friend(params[:first_name], params[:last_name], params[:birthday], params[:notes], params[:events])
+    render json: User.all
   end
 
   def update

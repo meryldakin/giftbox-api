@@ -1,14 +1,29 @@
 class User < ApplicationRecord
-  belongs_to :account
+  belongs_to :account, optional: true
 
   has_many :friendships
   has_many :friends, through: :friendships
+  has_many :celebrations, through: :friendships
+  has_many :events, through: :celebrations
+  has_many :exchanges, through: :celebrations
 
   has_many :gifts
-  has_many :exchanges, through: :gifts
 
-  has_many :users_events
-  has_many :events, through: :users_events
+  # has_many :users_events
+  # has_many :events, through: :users_events
+
+
+def add_friend(first_name, last_name, birthday, notes, events)
+  friend = User.create(firstName: first_name, lastName: last_name, birthday: birthday, notes: notes)
+  friendship = Friendship.create(user_id: self.id, friend_id: friend.id)
+  events.map do |event_name|
+    event = Event.find_by(name: event_name)
+    UsersEvent.create(user: friend, event: event)
+    Celebration.create(friendship: friendship, event: event)
+  end
+  friend.save
+end
+
 
 def find_friend(friend_id)
   return User.find(friend_id)
