@@ -72,15 +72,6 @@ def assign_friend_gift_event(friend_id, gift_name, event_id)
   return [friend, gift, exchange]
 end
 
-def see_all_friend_gifts(friend_id)
-  exchanges = Exchange.where(celebration: Celebration.where(friendship: Friendship.where(friend: friend_id)))
-  # gifts = exchanges.includes(:gift)
-  gifts = exchanges.map do |exchange|
-    exchange.gift
-  end
-
-  return gifts
-end
 
 def see_friend_gifts_for_event(friend_id, event_id)
   celebrations = find_friend_event_celebrations(friend_id, event_id)
@@ -91,7 +82,5 @@ def see_friend_gifts_for_event(friend_id, event_id)
     exchange[0].gift
   end
   gifts.count > 0 ? gifts : 0
-end
-
-
+  end
 end

@@ -5,7 +5,7 @@ class Friendship < ApplicationRecord
   has_many :celebrations
   has_many :exchanges, through: :celebrations
   has_many :events, through: :celebrations
-  has_many :gifts, through: :exchangess
+  has_many :gifts, through: :exchanges
 
 
 end

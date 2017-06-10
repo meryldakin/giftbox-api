@@ -8,7 +8,7 @@ class UserSerializer < ActiveModel::Serializer
   # has_many :friends, through: :friendships
   # has_many :celebrations, through: :friendships
 
-  has_many :gifts
+  # has_many :gifts
   # has_many :exchanges, through: :gifts
 
 
