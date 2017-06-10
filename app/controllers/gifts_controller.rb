@@ -1,6 +1,6 @@
 class GiftsController < ApplicationController
   def index
-    gifts = Gift.all
+    gifts = Gift.all.includes(:exchanges)
     render json: gifts
   end
 

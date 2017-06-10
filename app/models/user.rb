@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :events, through: :celebrations
   has_many :exchanges, through: :celebrations
 
-  has_many :gifts
+  has_many :gifts, through: :exchanges
 
   # has_many :users_events
   # has_many :events, through: :users_events
@@ -73,13 +73,12 @@ def assign_friend_gift_event(friend_id, gift_name, event_id)
 end
 
 def see_all_friend_gifts(friend_id)
-  celebrations = find_friend_celebrations(friend_id)
-  exchanges = celebrations.map do |celebration|
-    celebration.exchanges
-  end
+  exchanges = Exchange.where(celebration: Celebration.where(friendship: Friendship.where(friend: friend_id)))
+  # gifts = exchanges.includes(:gift)
   gifts = exchanges.map do |exchange|
-    exchange[0].gift
+    exchange.gift
   end
+
   return gifts
 end
 
