@@ -94,6 +94,12 @@ def edit_exchange(gift, celebration, exchange)
   editing_exchange.celebration = celebration
 end
 
+def delete_exchange(exchange_id)
+  exchange = Exchange.find(exchange_id)
+  exchange.gift.destroy
+  exchange.destroy
+end
+
 def see_friend_gifts_for_event(friend_id, event_id)
   celebrations = find_friend_event_celebrations(friend_id, event_id)
   exchanges = celebrations.map do |celebration|

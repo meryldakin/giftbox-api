@@ -48,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def edit_gift # needs these params: :friend_id, :gift_id, :item, :category, :price, :link, :event_id
-    user = User.first_or_create
+    user = User.first
     friend = User.find(params[:friend_id])
     gift = Gift.find(params[:gift_id])
     user.edit_gift(params[:item], params[:category], params[:price], params[:link], params[:gift_id])
@@ -62,7 +62,9 @@ class UsersController < ApplicationController
   end
 
   def delete_gift
-
+    user = User.first
+    user.delete_exchange(params[:exchange_id])
+    render json: user.friendships
   end
 
 
