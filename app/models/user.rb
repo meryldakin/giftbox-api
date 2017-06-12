@@ -24,6 +24,25 @@ def add_friend(first_name, last_name, birthday, notes, events)
   friend.save
 end
 
+def edit_friend(id, first_name, last_name, birthday, notes, events)
+  friend = User.find(id)
+  friend.firstName = first_name
+  friend.lastName = last_name
+  friend.birthday = birthday
+  friend.notes = notes
+  # events.map do |event_name|
+  #   event = Event.find_by(name: event_name)
+  #   UsersEvent.find_or_create_by(user: friend, event: event)
+  #   Celebration.find_or_create_by(friendship: friendship, event: event)
+  # end
+  friend.save
+end
+
+def delete_friend(friend)
+  Friendship.where(friend_id: friend.id).destroy_all
+  friend.destroy  
+end
+
 
 def find_friend(friend_id)
   return User.find(friend_id)

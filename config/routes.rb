@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :accounts, only: [:create]
   post '/auth', to: 'auth#create'
   post '/add_friend', to: 'users#add_friend'
+  patch '/edit_friend', to: 'users#edit_friend'
+  delete '/delete_friend', to: 'users#delete_friend'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 
