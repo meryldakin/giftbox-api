@@ -40,7 +40,6 @@ end
 
 def delete_friend(friend)
   Friendship.where(friend_id: friend.id).destroy_all
-  friend.destroy  
 end
 
 
@@ -71,26 +70,14 @@ def find_or_create_gift(gift_name)
   return Gift.where(:item => gift_name, :user_id => self.id).first_or_create
 end
 
-def create_anytime_exchange(friend_id, gift_name)
-  gift = find_or_create_gift(gift_name)
+def create_exchange(friend_id, gift_id, event_id=2)
+  gift = Gift.find(gift_id)
   friendship = find_friendship(friend_id)
-  return Exchange.create(gift: gift, celebration: Celebration.create(friendship: friendship), completed: false)
+  event = Event.find(event_id)
+  celebration = Celebration.create(friendship: friendship, event: event)
+  exchange = Exchange.create(gift: gift, celebration: celebration, completed: false)
+  return exchange
 end
-
-def assign_friend_gift(friend_id, gift_name)
-  friend = find_friend(friend_id)
-  gift = find_or_create_gift(gift_name)
-  exchange = create_anytime_exchange(friend_id, gift_name)
-  return [friend, gift, exchange]
-end
-
-def assign_friend_gift_event(friend_id, gift_name, event_id)
-  friend = find_friend(friend_id)
-  gift = find_or_create_gift(gift_name)
-  exchange = Exchange.create(friend: friend_id, gift: gift_name, event: find_event(event_id) )
-  return [friend, gift, exchange]
-end
-
 
 def see_friend_gifts_for_event(friend_id, event_id)
   celebrations = find_friend_event_celebrations(friend_id, event_id)

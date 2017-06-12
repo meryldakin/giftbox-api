@@ -35,7 +35,20 @@ class UsersController < ApplicationController
     user = User.first
     friend = User.find(params[:id])
     user.delete_friend(friend)
-    render json: User.all.includes(:friendships, :gifts)
+    render json: user.friendships
+  end
+
+  def add_gift
+    user = User.first
+    friend = User.find(params[:friend_id])
+    params[:event_id] == "" ? event = Event.find(2) : event = Event.find(params[:event_id])
+    gift = Gift.create(item: params[:item], category: params[:category], price: params[:price], link: params[:link], user: user)
+    user.create_exchange(friend.id, gift.id, event.id)
+    render json: user.friendships
+  end
+
+  def edit_gift
+
   end
 
 
