@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :stores, only: [:index, :update, :show, :create, :delete]
-  resources :events, only: [:index, :update, :show, :create, :delete]
+  resources :event_lists, only: [:index, :update, :show, :create, :delete]
   resources :gifts, only: [:index, :update, :show, :create, :delete]
   resources :users, only: [:index, :update, :show, :create]
   resources :accounts, only: [:create]
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/add_gift', to: 'users#add_gift'
   patch '/edit_gift', to: 'users#edit_gift'
   delete '/delete_gift', to: 'users#delete_gift'
+  get '/exchanges', to: 'exchanges#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 

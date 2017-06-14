@@ -28,7 +28,7 @@
 
 **Store**: has_many gifts
 
-**Event**: has_many friends, has_many gifts
+**EventList**: has_many friends, has_many gifts
 
 
 ###Major Tables:

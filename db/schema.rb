@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609140130) do
+ActiveRecord::Schema.define(version: 20170613172127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,17 +24,18 @@ ActiveRecord::Schema.define(version: 20170609140130) do
 
   create_table "celebrations", force: :cascade do |t|
     t.integer "friendship_id"
-    t.integer "event_id"
+    t.integer "event_list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "events", force: :cascade do |t|
+  create_table "event_lists", force: :cascade do |t|
     t.string "name"
-    t.date "date"
-    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "day"
+    t.integer "month"
+    t.string "category"
   end
 
   create_table "exchanges", force: :cascade do |t|
@@ -95,7 +96,7 @@ ActiveRecord::Schema.define(version: 20170609140130) do
 
   create_table "users_events", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "event_id"
+    t.integer "event_list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
