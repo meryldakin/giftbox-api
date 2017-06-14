@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :gifts, only: [:index, :update, :show, :create, :delete]
   resources :users, only: [:index, :update, :show, :create]
   resources :accounts, only: [:create]
+  resources :celebrations, only: [:index, :create, :delete]
   post '/auth', to: 'auth#create'
   post '/add_friend', to: 'users#add_friend'
   patch '/edit_friend', to: 'users#edit_friend'
