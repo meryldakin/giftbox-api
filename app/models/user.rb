@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   has_many :gifts, through: :exchanges
 
-  # has_many :users_event_lists
-  # has_many :event_lists, through: :users_event_lists
+  has_many :users_event_lists
+  has_many :event_lists, through: :users_event_lists
 
 
 def add_friend(first_name, last_name, birthday, notes, event_lists)

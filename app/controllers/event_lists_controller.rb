@@ -5,9 +5,11 @@ class EventListsController < ApplicationController
   end
 
   def create
-    event_list = EventList.new(name: params[:name], category: params[:category], day: params[:day], month: params[:month])
-    event_list.save
-    render json: event_list
+    event_lists = EventList.all.includes(:celebrations)
+    event_list = EventList.create(name: params[:name], category: params[:category], date: params[:date])
+    user = User.find(params[:user_id])
+    UsersEventList.create(user: user, event_list: event_list)
+    render json: event_lists
   end
 
   def update
