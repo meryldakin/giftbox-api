@@ -27,7 +27,10 @@ class CelebrationsController < ApplicationController
     render json: user.friendships
   end
 
-  def delete
-
+  def destroy
+    user = User.first
+    celebration = Celebration.find(params[:celebration_id])
+    celebration.destroy
+    render json: EventList.all
   end
 end

@@ -14,4 +14,8 @@ class ExchangesController < ApplicationController
     exchange.save
     render json: user.friendships
   end
+
+  def destroy
+      
+  end
 end
