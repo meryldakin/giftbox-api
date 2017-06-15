@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   def add_gift
     user = User.first
     friend = User.find(params[:friend_id])
-    params[:event_list_id] == "" ? event_list = EventList.find(2) : event_list = EventList.find(params[:event_list_id])
+    event_list = EventList.find(params[:event_list_id])
     gift = Gift.create(item: params[:item], category: params[:category], price: params[:price], link: params[:link], user: user)
     user.create_exchange(friend.id, gift.id, event_list.id)
     render json: user.friendships

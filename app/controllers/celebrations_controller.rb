@@ -5,9 +5,11 @@ class CelebrationsController < ApplicationController
   end
 
   def create
+    # friends = params[:friend_ids].map { |id| User.find(id) }
+    friends = User.find(params[:friend_ids])
 
-    friends = params[:friend_ids].map { |id| User.find(id) }
     friendships = friends.map{ |friend| Friendship.find_by(user: User.find(1), friend: friend) }
+    
     event = EventList.find(params[:event_id])
     def create_or_find_celebrations(friendship, event)
       Celebration.find_or_create_by(friendship: friendship, event_list: event)
