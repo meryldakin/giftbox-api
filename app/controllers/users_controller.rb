@@ -48,19 +48,6 @@ class UsersController < ApplicationController
     render json: user.friendships
   end
 
-  def edit_gift # needs these params: :friend_id, :gift_id, :item, :category, :price, :link, :event_list_id
-    user = User.first
-    friend = User.find(params[:friend_id])
-    gift = Gift.find(params[:gift_id])
-    user.edit_gift(params[:item], params[:category], params[:price], params[:link], params[:gift_id])
-    exchange = Exchange.find(params[:exchange_id])
-    celebration = exchange.celebration
-    params[:event_list_id] == "" ? celebration.event_list = EventList.find(2) : celebration.event_list = EventList.find(params[:event_list_id])
-    exchange.save
-    celebration.save
-    user.edit_exchange(gift, celebration, exchange)
-    render json: user.friendships
-  end
 
   def delete_gift
     user = User.first

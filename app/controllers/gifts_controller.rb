@@ -5,14 +5,20 @@ class GiftsController < ApplicationController
   end
 
   def create
-    gift = Gift.new(item: params[:item], price: params[:price], category: params[:category], link: params[:link])
+    gift = Gift.new(item: params[:item], price: params[:price], link: params[:link])
     gift.save
     render json: gifts
   end
 
   def update
-
+    gift = Gift.find(params[:gift_id])
+    gift.item = params[:item]
+    gift.price = params[:price]
+    gift.link = params[:link]
+    gift.save
+    render json: gift
   end
+
 
   def show
     gift = Gift.find(params[:id])

@@ -87,21 +87,6 @@ def create_exchange(friend_id, gift_id, event_list_id=2)
   return exchange
 end
 
-def edit_gift(item, category, price, link, gift_id)
-  gift = Gift.find(gift_id)
-  gift.item = item
-  gift.category = category
-  gift.price = price
-  gift.link = link
-  gift.save
-end
-
-def edit_exchange(gift, celebration, exchange)
-  editing_exchange = exchange
-  editing_exchange.gift = gift
-  editing_exchange.celebration = celebration
-end
-
 def delete_exchange(exchange_id)
   exchange = Exchange.find(exchange_id)
   exchange.gift.destroy
