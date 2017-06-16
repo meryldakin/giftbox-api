@@ -27,7 +27,5 @@ class EventListsController < ApplicationController
     event_list = EventList.find(params[:id])
     render json: event_list
   end
-  def delete
 
-  end
 end
