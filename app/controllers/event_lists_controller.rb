@@ -13,6 +13,13 @@ class EventListsController < ApplicationController
   end
 
   def update
+    event_lists = EventList.all.includes(:celebrations)
+    event_list = EventList.find(params[:id])
+    event_list.name = params[:name]
+    event_list.category = params[:category]
+    event_list.date = Date.parse(params[:date])
+    event_list.save
+    render json: event_lists
 
   end
 
