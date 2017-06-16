@@ -16,6 +16,13 @@ class ExchangesController < ApplicationController
   end
 
   def destroy
-      
+
+  end
+
+  def edit_completed
+    exchange = Exchange.find(params[:exchange_id])
+    exchange.completed = params[:checked]
+    exchange.save
+    render json: EventList.all
   end
 end
