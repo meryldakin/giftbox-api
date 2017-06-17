@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   delete '/delete_gift', to: 'users#delete_gift'
   get '/exchanges', to: 'exchanges#index'
   patch '/exchanges/:id/complete', to: 'exchanges#edit_completed'
+  patch '/event_lists/:id/completed', to: 'event_lists#edit_completed'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 

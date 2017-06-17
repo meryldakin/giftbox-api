@@ -28,4 +28,12 @@ class EventListsController < ApplicationController
     render json: event_list
   end
 
+  def edit_completed
+    event_list = EventList.find(params[:event_list_id])
+    event_list.completed = params[:completed]
+    event_list.save
+    render json: EventList.all.includes(:celebrations)
+
+  end
+
 end
