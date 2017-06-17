@@ -8,7 +8,7 @@ class CelebrationsController < ApplicationController
     # friends = params[:friend_ids].map { |id| User.find(id) }
     friends = User.find(params[:friend_ids])
 
-    friendships = friends.map{ |friend| Friendship.find_by(user: User.find(1), friend: friend) }
+    friendships = friends.map{ |friend| Friendship.find_by(user: user = User.find(params[:current_user_id]), friend: friend) }
 
     event = EventList.find(params[:event_id])
     def create_or_find_celebrations(friendship, event)
@@ -20,7 +20,7 @@ class CelebrationsController < ApplicationController
   end
 
   def update
-    user = User.first
+    user = User.find(params[:current_user_id])
     celebration = Celebration.find(params[:celebration_id])
     celebration.event_list = EventList.find(params[:event_list_id])
     celebration.save
@@ -28,7 +28,7 @@ class CelebrationsController < ApplicationController
   end
 
   def destroy
-    user = User.first
+    user = User.find(params[:current_user_id])
     celebration = Celebration.find(params[:celebration_id])
     celebration.destroy
     render json: EventList.all

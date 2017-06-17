@@ -4,7 +4,7 @@ class ExchangesController < ApplicationController
   end
 
   def update
-    user = User.first
+    user = User.find(params[:current_user_id])
     friend = User.find(params[:friend_id])
     friendship = Friendship.find_by(user: user, friend: friend)
     event_list = EventList.find(params[:event_list_id])

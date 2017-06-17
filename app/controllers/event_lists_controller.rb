@@ -7,7 +7,7 @@ class EventListsController < ApplicationController
   def create
     event_lists = EventList.all.includes(:celebrations)
     event_list = EventList.create(name: params[:name], category: params[:category], date: params[:date])
-    user = User.find(params[:user_id])
+    user = User.find(params[:current_user_id])
     UsersEventList.create(user: user, event_list: event_list)
     render json: event_lists
   end
