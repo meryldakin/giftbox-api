@@ -1,5 +1,5 @@
 class GiftSerializer < ActiveModel::Serializer
-  attributes :id, :item, :category, :price, :link
+  attributes :id, :item, :category, :link, :image
 
   # has_many :gifts_stores
   # has_many :stores, through: :users_stores

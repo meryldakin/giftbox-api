@@ -5,6 +5,7 @@ class EventListsController < ApplicationController
   end
 
   def create
+    byebug
     event_lists = EventList.all.includes(:celebrations)
     event_list = EventList.create(name: params[:name], category: params[:category], date: params[:date])
     user = User.find(params[:current_user_id])

@@ -5,7 +5,7 @@ class GiftsController < ApplicationController
   end
 
   def create
-    gift = Gift.new(item: params[:item], price: params[:price], link: params[:link])
+    gift = Gift.new(item: params[:item], image: params[:image], link: params[:link])
     gift.save
     render json: gifts
   end
@@ -13,7 +13,7 @@ class GiftsController < ApplicationController
   def update
     gift = Gift.find(params[:gift_id])
     gift.item = params[:item]
-    gift.price = params[:price]
+    gift.image = params[:image]
     gift.link = params[:link]
     gift.save
     render json: gift

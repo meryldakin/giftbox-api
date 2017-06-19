@@ -40,14 +40,14 @@ def edit_friend(id, first_name, last_name, birthday, notes, event_lists)
   friend.save
 end
 
-def delete_friend(friend)
-  friendship = Friendship.find(friend_id: friend.id)
+def delete_friend(friend, user)
+  friendship = Friendship.find_by(friend: friend, user: user)
   celebrations = Celebration.where(friendship: friendship)
-  exchanges = celebrations.map( celebration => celebration.exchanges )
-  gifts = exchanges.map( exchange => exchange.gift )
-  celebrations.destroy_all
-  exchanges.destroy_all
-  gifts.destroy_all
+  exchanges = celebrations.map { |celebration| celebration.exchanges }
+  gifts = exchanges.map { |exchange| exchange.gift }
+  celebrations.count > 0 ? celebrations.destroy_all : celebrations
+  exchanges.count > 0 ? exchanges.destroy_all : exchanges
+  gifts.count > 0 ? gifts.destroy_all : gifts
   friendship.destroy
 
 end
