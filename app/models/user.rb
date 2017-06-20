@@ -9,20 +9,12 @@ class User < ApplicationRecord
 
   has_many :gifts, through: :exchanges
 
-  has_many :users_event_lists
-  has_many :event_lists, through: :users_event_lists
+  has_many :event_lists
 
 
 def add_friend(first_name, last_name, birthday, notes, event_lists)
   friend = User.create(firstName: first_name, lastName: last_name, birthday: birthday, notes: notes)
   friendship = Friendship.create(user_id: self.id, friend_id: friend.id)
-  if event_lists
-    event_lists.map do |event_list_name|
-      event_list = EventList.find_by(name: event_list_name)
-      UsersEvent.create(user: friend, event: event_list)
-      Celebration.create(friendship: friendship, event_list: event_list)
-    end
-  end
   friend.save
 end
 

@@ -23,6 +23,9 @@ class ExchangesController < ApplicationController
     exchange = Exchange.find(params[:exchange_id])
     exchange.completed = params[:checked]
     exchange.save
-    render json: EventList.all
+    user = User.find(params[:current_user_id])
+    event_lists = EventList.where(user: user)
+    events_and_celebrations = event_lists.includes(:celebrations)
+    render json: events_and_celebrations
   end
 end

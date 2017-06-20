@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618232152) do
+ActiveRecord::Schema.define(version: 20170620162853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20170618232152) do
     t.string "category"
     t.date "date"
     t.boolean "completed"
+    t.integer "user_id"
   end
 
   create_table "exchanges", force: :cascade do |t|
@@ -64,13 +65,6 @@ ActiveRecord::Schema.define(version: 20170618232152) do
     t.string "image"
   end
 
-  create_table "gifts_events", force: :cascade do |t|
-    t.integer "gift_id"
-    t.integer "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "gifts_stores", force: :cascade do |t|
     t.integer "gift_id"
     t.integer "store_id"
@@ -93,13 +87,6 @@ ActiveRecord::Schema.define(version: 20170618232152) do
     t.integer "account_id"
     t.date "birthday"
     t.text "notes"
-  end
-
-  create_table "users_event_lists", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "event_list_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end

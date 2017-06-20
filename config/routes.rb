@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  resources :stores, only: [:index, :update, :show, :create, :delete]
-  resources :event_lists, only: [:index, :update, :show, :create, :delete]
-  resources :gifts, only: [:index, :update, :show, :create, :delete]
+  resources :stores, only: [:index, :update, :show, :create, :destroy]
+  resources :event_lists, only: [:index, :update, :show, :create, :destroy]
+  resources :gifts, only: [:index, :update, :show, :create, :destroy]
   resources :users, only: [:index, :update, :show, :create]
   resources :accounts, only: [:create, :show, :index]
   resources :celebrations, only: [:index, :create, :update, :destroy]
-  resources :exchanges, only: [:index, :create, :update, :delete]
+  resources :exchanges, only: [:index, :create, :update, :destroy]
+
   post '/auth', to: 'auth#create'
   post '/add_friend', to: 'users#add_friend'
   patch '/edit_friend', to: 'users#edit_friend'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   patch '/exchanges/:id/complete', to: 'exchanges#edit_completed'
   patch '/event_lists/:id/completed', to: 'event_lists#edit_completed'
   post '/decode_token', to: 'auth#decode_token'
+  get '/event_lists/users/:id', to: 'event_lists#user'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 
