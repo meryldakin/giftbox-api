@@ -22,7 +22,7 @@ class AuthController < ApplicationController
   def decode_token
     jwt = JWT.decode(params[:token], ENV['JWT_SECRET'], "H256")
     user = User.find_by(account: Account.find(jwt[0]["account_id"]))
-    render json: user.id
+    render json: user
   end
 
 end

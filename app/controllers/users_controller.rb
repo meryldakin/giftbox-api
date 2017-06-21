@@ -15,14 +15,16 @@ class UsersController < ApplicationController
     user = User.find(params[:current_user_id])
     user.add_friend(params[:first_name], params[:last_name], params[:birthday], params[:notes], params[:event_list])
     friend = user.friends.last
-    render json: user.friendships
+    friendship = Friendship.find_by(user: user, friend: friend)
+    render json: friendship
   end
 
   def edit_friend
     user = User.find(params[:current_user_id])
     user.edit_friend(params[:id], params[:firstName], params[:lastName], params[:birthday], params[:notes], params[:event_list])
     friend = User.find(params[:id])
-    render json: user.friendships
+    friendship = Friendship.find_by(user: user, friend: friend)
+    render json: friendship
   end
 
   def update
