@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     user = User.find(params[:current_user_id])
     friend = User.find(params[:id])
     user.delete_friend(friend, user)
-    render json: user.friendships
+    render json: friend.id
   end
 
   def add_gift

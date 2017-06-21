@@ -9,17 +9,16 @@ class CelebrationsController < ApplicationController
     friends = User.find(params[:friend_ids])
     user = User.find(params[:current_user_id])
 
-
     friendships = friends.map{ |friend| Friendship.find_by(user: user, friend: friend) }
 
     event = EventList.find(params[:event_id])
     def create_or_find_celebrations(friendship, event)
       Celebration.find_or_create_by(friendship: friendship, event_list: event)
     end
-    friendships.map{ |friendship|  create_or_find_celebrations(friendship, event) }
-    event_lists = EventList.where(user: user)
-    events_and_celebrations = event_lists.includes(:celebrations)
-    render json: events_and_celebrations
+
+    celebrations = friendships.map{ |friendship|  create_or_find_celebrations(friendship, event) }
+
+    render json: event
   end
 
   def update

@@ -8,9 +8,7 @@ class EventListsController < ApplicationController
   def create
     user = User.find(params[:current_user_id])
     event_list = EventList.create(name: params[:name], category: params[:category], date: params[:date], user: user)
-    event_lists = EventList.where(user: user)
-    events_and_celebrations = event_lists.includes(:celebrations)
-    render json: events_and_celebrations
+    render json: event_list
   end
 
   def update
@@ -19,10 +17,7 @@ class EventListsController < ApplicationController
     event_list.category = params[:category]
     event_list.date = Date.parse(params[:date])
     event_list.save
-    user = User.find(params[:current_user_id])
-    event_lists = EventList.where(user: user)
-    events_and_celebrations = event_lists.includes(:celebrations)
-    render json: events_and_celebrations
+    render json: event_list
   end
 
 
@@ -36,7 +31,7 @@ class EventListsController < ApplicationController
     event_list = EventList.find(params[:event_list_id])
     event_list.completed = params[:completed]
     event_list.save
-    render json: EventList.all.includes(:celebrations)
+    render json: event_list
 
   end
 
