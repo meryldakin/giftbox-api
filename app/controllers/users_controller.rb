@@ -46,19 +46,19 @@ class UsersController < ApplicationController
   def add_gift
     user = User.find(params[:current_user_id])
     friend = User.find(params[:friend_id])
+    friendship = Friendship.find_by(user: user, friend: friend)
     event_list = params[:event_list_id] ? EventList.find(params[:event_list_id]) : EventList.find(2)
     gift = Gift.create(item: params[:item], image: params[:image], link: params[:link], user: user)
     user.create_exchange(friend.id, gift.id, event_list.id)
-    render json: user.friendships
+    render json: friendship
   end
 
 
   def delete_gift
     user = User.find(params[:current_user_id])
     user.delete_exchange(params[:exchange_id])
-    events = EventList.where(user: user)
-    events_and_celebrations = events.includes(:celebrations)
-    render json: user.friendships
+    friendship = Friendship.find_by(user: user, friend_id: params[:friend]["id"])
+    render json: friendship
   end
 
 

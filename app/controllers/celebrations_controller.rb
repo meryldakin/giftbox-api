@@ -32,10 +32,8 @@ class CelebrationsController < ApplicationController
   def destroy
     user = User.find(params[:current_user_id])
     celebration = Celebration.find(params[:celebration_id])
+    event_list = celebration.event_list
     celebration.destroy
-    user = User.find(params[:current_user_id])
-    event_lists = EventList.where(user: user)
-    events_and_celebrations = event_lists.includes(:celebrations)
-    render json: events_and_celebrations
+    render json: event_list
   end
 end
