@@ -1,8 +1,7 @@
 class EventListsController < ApplicationController
 
   def index
-
-    render json: EventList.all.includes(:celebrations)
+    render json: EventList.all
   end
 
   def create

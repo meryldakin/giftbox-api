@@ -37,9 +37,9 @@ def delete_friend(friend, user)
   celebrations = Celebration.where(friendship: friendship)
   exchanges = celebrations.map { |celebration| celebration.exchanges }
   gifts = exchanges.map { |exchange| exchange.gift }
-  celebrations.count > 0 ? celebrations.destroy_all : celebrations
-  exchanges.count > 0 ? exchanges.destroy_all : exchanges
   gifts.count > 0 ? gifts.destroy_all : gifts
+  exchanges.count > 0 ? exchanges.destroy_all : exchanges
+  celebrations.count > 0 ? celebrations.destroy_all : celebrations
   friendship.destroy
 
 end
